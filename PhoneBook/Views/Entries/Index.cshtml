@@ -1,0 +1,52 @@
+﻿@model IEnumerable<PhoneBook.Models.Entry>
+
+@{
+    ViewBag.Title = "Entries";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Entries</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+<p>
+    @using (Html.BeginForm("Search", "Entries", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        <b>Search Option: </b>
+        @Html.TextBox("search")
+        <input type="submit" name="submit" value="Search" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EntryID }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.EntryID }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Delete", "Delete", new { id=item.EntryID }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to Phone Book",  "Index", "PhoneBooks", null, new { @class = "btn btn-default" })
+</div>

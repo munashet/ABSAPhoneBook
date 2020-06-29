@@ -1,0 +1,44 @@
+﻿@model IEnumerable<PhoneBook.Models.PhoneBook>
+
+@{
+    ViewBag.Title = "PhoneBook";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>PhoneBook</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success"})
+</p>
+<p>
+    @using (Html.BeginForm("Search", "PhoneBooks", FormMethod.Get))
+    {
+        @Html.AntiForgeryToken()
+        <b>Search Option: </b>
+        @Html.TextBox("search")
+        <input type="submit" name="submit" value="Search" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.PhoneBookID }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Details", "Details", new { id = item.PhoneBookID }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Delete", "Delete", new { id = item.PhoneBookID }, new { @class = "btn btn-default" }) 
+            @Html.ActionLink("Entries", "Index", "Entries", new { id = item.PhoneBookID }, new { @class = "btn btn-default" })
+        </td>
+    </tr>
+}
+
+</table>
